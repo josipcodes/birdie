@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Post
+from categories.serializers import CategorySerializer
 
 # most of the Serializer has been copied from drf_api lessons
 # some alternations made
@@ -8,6 +9,7 @@ class PostSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_avatar = serializers.ReadOnlyField(source='owner.profile.avatar.url')
+    # category = CategorySerializer()
 
     def validate_image(self, values):
         # 2MB
