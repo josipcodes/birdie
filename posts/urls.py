@@ -3,5 +3,5 @@ from django.urls import path
 from .views import PostList
 
 urlpatterns = [
-    path('posts/', ListPosts.as_view()),
+    path('posts/', PostList.as_view()),
 ]
