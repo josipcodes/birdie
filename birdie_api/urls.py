@@ -21,5 +21,5 @@ urlpatterns = [
     path('auth/', include('rest_framework.urls')),
     path('', include('profiles.urls')),
     path('', include('categories.urls')),
-    # path('', include('posts.urls')),
+    path('', include('posts.urls')),
 ]
