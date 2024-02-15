@@ -6,8 +6,9 @@ from .models import Profile
 from .serializers import ProfileSerializer
 from birdie_api.permissions import isOwnerOrReadOnly
 
-# views were built based off of DRF_API lessons, but have been modified
-class ListProfiles(APIView):
+# views were built based off of DRF_API lessons, 
+# but have been slightly modified
+class ProfileList(APIView):
     """
     List all profiles/create profile
     """
@@ -16,12 +17,12 @@ class ListProfiles(APIView):
         serializer = ProfileSerializer(
             all_profiles, 
             many=True,
-            context={request: 'request'}
+            context={'request': request}
             )
         return Response(serializer.data)
 
 
-class SpecificProfile(APIView):
+class ProfileDetail(APIView):
     serializer_class = ProfileSerializer
     permission_classes = [isOwnerOrReadOnly]
     def get_object(self, pk):
@@ -45,7 +46,7 @@ class SpecificProfile(APIView):
         profile = self.get_object(pk)
         serializer = ProfileSerializer(
             profile,
-            context={request: 'request'}
+            context={'request': request}
             )
         return Response(serializer.data)
 
@@ -58,7 +59,7 @@ class SpecificProfile(APIView):
         serializer = ProfileSerializer(
             profile, 
             data=request.data,
-            context={request: 'request'}
+            context={'request': request}
             )
         if serializer.is_valid():
             serializer.save()
