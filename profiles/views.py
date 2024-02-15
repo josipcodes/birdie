@@ -13,7 +13,11 @@ class ListProfiles(APIView):
     """
     def get (self, request):
         all_profiles = Profile.objects.all()
-        serializer = ProfileSerializer(all_profiles, many=True)
+        serializer = ProfileSerializer(
+            all_profiles, 
+            many=True,
+            context={request: 'request'}
+            )
         return Response(serializer.data)
 
 
@@ -39,7 +43,10 @@ class SpecificProfile(APIView):
         Obtains profile based on primary key
         """
         profile = self.get_object(pk)
-        serializer = ProfileSerializer(profile)
+        serializer = ProfileSerializer(
+            profile,
+            context={request: 'request'}
+            )
         return Response(serializer.data)
 
     def put(self, request, pk):
@@ -50,7 +57,8 @@ class SpecificProfile(APIView):
         profile = self.get_object(pk)
         serializer = ProfileSerializer(
             profile, 
-            data=request.data
+            data=request.data,
+            context={request: 'request'}
             )
         if serializer.is_valid():
             serializer.save()
