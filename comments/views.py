@@ -6,7 +6,7 @@ from .serializers import CommentSerializer, CommentDetailSerializer
 # views copied from drf_api lessons
 class CommentList(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission set globally
     queryset = Comment.objects.all()
 
 
