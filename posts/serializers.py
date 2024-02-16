@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Post
-from categories.serializers import CategorySerializer
+# from categories.serializers import CategorySerializer
 
 # most of the Serializer has been copied from drf_api lessons
 # some alternations made
@@ -27,6 +27,20 @@ class PostSerializer(serializers.ModelSerializer):
             )
         return value
 
+    # Appropriated functions from drf_api comment lessons
+    # Tbd if it will be used
+    def get_created(self, obj):
+        """
+        Returns a string representing time since creation
+        """
+        return naturaltime(obj.created)
+
+    def get_modified(self, obj):
+        """
+        Returns a string representing time since modifying
+        """
+        return naturaltime(obj.modified)
+
     def get_is_owner(self, obj):
         request = self.context['request']
         return obj.owner == request.user
@@ -45,3 +59,4 @@ class PostSerializer(serializers.ModelSerializer):
             'profile_id',
             'profile_avatar'
         ]
+
