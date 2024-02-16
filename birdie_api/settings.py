@@ -35,9 +35,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = 'DEBUG' in os.environ
 
-ALLOWED_HOSTS = ['8000-josipcodes-birdie-rqtbgbz9ycm.ws-eu108.gitpod.io']
+ALLOWED_HOSTS = [
+    os.environ.get('ALLOWED_HOST'),
+    'localhost'
+    # '8000-josipcodes-birdie-rqtbgbz9ycm.ws-eu108.gitpod.io', '3000-josipcodes-birdie-rqtbgbz9ycm.ws-eu108.gitpod.io'
+    ]
 
 
 # Application definition
@@ -128,6 +133,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ]
 }
+
+CORS_ALLOWED_ORIGINS = [
+    os.environ.get('CLIENT_ORIGIN')
+]
 
 
 # Internationalization
