@@ -9,10 +9,10 @@ const NavBar = () => {
     // copied and modified
     // source: https://react-bootstrap-v4.netlify.app/components/navbar/
     <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
-      <Navbar.Brand href="#home">
-        <i class="fa-brands fa-earlybirds"></i>
+      <Navbar.Brand href="#home" className="d-flex flex-row">
+        <i className="fa-brands fa-earlybirds fa-lg mt-4 mr-2"></i>
+        <h2 className={`${styles.Brand} mr-auto`}>Birdie</h2>
       </Navbar.Brand>
-      <h2 className={`${styles.Brand} mr-auto`}>Birdie</h2>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
