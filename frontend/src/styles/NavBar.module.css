@@ -1,6 +1,15 @@
+.NavBar {
+  background-color: #292b2c;
+  color: white;
+}
+
+i {
+  color: white;
+}
+
 .Brand {
   font-family: "Permanent Marker", cursive;
   font-weight: 400;
   font-style: normal;
-  color: aliceblue;
+  color: #ffffff;
 }
