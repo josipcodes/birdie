@@ -26,7 +26,7 @@ const NavBar = () => {
         <i className="fa-brands fa-earlybirds fa-lg mt-4 mr-2"></i>
         <h2 className={`${styles.Brand} mr-auto`}>Birdie</h2>
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" className="navbar-dark" id={styles.Toggle} />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">Logged in icons</Nav>
         <Nav>Logged Out Icons</Nav>
