@@ -4,30 +4,33 @@ import Container from "react-bootstrap/Container";
 import { Route } from "react-router-dom";
 import LogInForm from "./pages/auth/LogInForm";
 import "./api/axiosDefaults";
-import { createContext, useEffect, useState } from "react";
-import axios from "axios";
+import { useCurrentUser } from "./contexts/CurrentUserContext";
+// import { createContext, useEffect, useState } from "react";
+// import axios from "axios";
 
-export const CurrentUserContext = createContext();
-export const SetCurrentUserContext = createContext();
+// export const CurrentUserContext = createContext();
+// export const SetCurrentUserContext = createContext();
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const currentUser = useCurrentUser();
+  console.log(currentUser)
+  // const [currentUser, setCurrentUser] = useState(null);
 
-  const handleMount = async () => {
-    try {
-      const { data } = await axios.get("/dj-rest-auth/user/");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleMount = async () => {
+  //   try {
+  //     const { data } = await axios.get("/dj-rest-auth/user/");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    handleMount();
-  }, []);
+  // useEffect(() => {
+  //   handleMount();
+  // }, []);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <SetCurrentUserContext.Provider value={setCurrentUser}>
+    // <CurrentUserContext.Provider value={currentUser}>
+    //   <SetCurrentUserContext.Provider value={setCurrentUser}>
         <div className={styles.App}>
           <NavBar />
           <Container>
@@ -38,8 +41,8 @@ function App() {
             <Route exact path="/saved" render={() => <h3>Saved</h3>} />
           </Container>
         </div>
-      </SetCurrentUserContext.Provider>
-    </CurrentUserContext.Provider>
+    //   </SetCurrentUserContext.Provider>
+    // </CurrentUserContext.Provider>
   );
 }
 

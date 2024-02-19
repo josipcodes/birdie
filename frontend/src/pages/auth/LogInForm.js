@@ -1,13 +1,15 @@
-import React, { useState, useContext } from "react";
+// import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import axios from "axios";
-import { SetCurrentUserContext } from "../../App";
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { useHistory } from "react-router-dom";
 
 const LogInForm = () => {
-  const setCurrentUser = useContext(SetCurrentUserContext);
+  // setting current user based off of CurrentUserContext
+  const setCurrentUser = useSetCurrentUser();
 
   const [logInData, setLogInData] = useState({
     username: "",
@@ -36,8 +38,6 @@ const LogInForm = () => {
       e.preventDefault();
       try {
         const { data } = await axios.post("/dj-rest-auth/login/", logInData);
-        // clg
-        console.log("token", data.token)
         setCurrentUser(data.user);
         // clg
         console.log(setCurrentUser)

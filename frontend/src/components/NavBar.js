@@ -1,27 +1,43 @@
-import React from "react";
+// import React, { useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import styles from "../styles/NavBar.module.css";
-import { SetCurrentUserContext } from "../App";
+import axios from "axios";
+// import { CurrentUserContext } from "../App";
+import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
 
 
 
 const NavBar = () => {
-  const currentUser = SetCurrentUserContext
+  const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
+
+  const handleLogOut = async () => {
+    try {
+      console.log("user", currentUser)
+      await axios.post("/dj-rest-auth/logout/");
+      setCurrentUser(null)
+      console.log("user", currentUser)
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const IconsLoggedIn = (
     <>
       <Nav.Link href="#features">Feed</Nav.Link>
       <Nav.Link href="#pricing">Saved Posts</Nav.Link>
+      <Nav.Link to="/" onClick={handleLogOut}>Log Out</Nav.Link>
     </>
   );
   
   const IconsLoggedOut = (
     <>
-      <Nav.Link href="#deets">Log In</Nav.Link>
+      <Nav.Link to="/login">Log In</Nav.Link>
       <Nav.Link href="#memes">Register</Nav.Link>
     </>
   );
+
 
   return (
     // copied and modified
@@ -33,9 +49,11 @@ const NavBar = () => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" className="navbar-dark" id={styles.Toggle} />
       <Navbar.Collapse id="responsive-navbar-nav">
-      { currentUser && IconsLoggedIn}
+        {/* something is wrong here */}
+      { !currentUser && IconsLoggedIn}
         <Nav className="mr-auto">Logged in icons</Nav>
-        { !currentUser && IconsLoggedOut}
+        {/* something is wrong here */}
+        { currentUser && IconsLoggedOut}
         <Nav>Logged Out Icons</Nav>
       </Navbar.Collapse>
     </Navbar>
