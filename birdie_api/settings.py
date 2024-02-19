@@ -27,6 +27,45 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# copied from drf_api lessons
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [(
+        'rest_framework.authentication.SessionAuthentication'
+        if 'DEV' in os.environ
+        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    )],
+    # REST global permission policy
+    # Code adapted from https://www.django-rest-framework.org/api-guide/permissions/
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    # ]
+}
+
+# REST global permission policy
+# Code adapted from https://www.django-rest-framework.org/api-guide/permissions/
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+#     ]
+# }
+
+CORS_ALLOWED_ORIGINS = [
+    os.environ.get('CLIENT_ORIGIN')
+]
+
+# copied from drf_api lessons
+REST_USE_JWT = True
+JWT_AUTH_SECURE = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+# different platforms JWT
+JWT_AUTH_SAMESITE = 'None'
+
+# copied from drf_api, with minor adjustment
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'birdie_api.serializers.CurrentUserSerializer'
+}
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -57,6 +96,13 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 
     'profiles',
     'categories',
@@ -64,6 +110,9 @@ INSTALLED_APPS = [
     'comments',
     'likes',
 ]
+
+# default site ID
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,18 +175,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# REST global permission policy
-# Code adapted from https://www.django-rest-framework.org/api-guide/permissions/
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ]
-}
-
-CORS_ALLOWED_ORIGINS = [
-    os.environ.get('CLIENT_ORIGIN')
-]
 
 
 # Internationalization

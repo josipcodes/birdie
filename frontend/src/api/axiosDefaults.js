@@ -7,4 +7,10 @@
 
 import axios from 'axios';
 
+// should be api/
 axios.defaults.baseURL = 'api/';
+
+// copied from drf_api
+// multipart as our app will deal with images, texts...
+axios.defaults.headers.post['Content-Type'] = "multipart/form-data"
+axios.defaults.withCredentials = true;
